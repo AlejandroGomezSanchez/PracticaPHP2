@@ -206,7 +206,7 @@
                             exit();
 
                             // Mostrar la tabla en una nueva página
-                            echo $tabla_html;
+                            
                         } else {
                             echo "<p style='color: red;'>El sueldo debe estar entre $sueldo_minimo y $sueldo_maximo para la categoría seleccionada.</p>";
                         }
