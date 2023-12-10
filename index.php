@@ -64,6 +64,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apellidos = $_POST["apellidos"];
     $fecha_nacimiento = $_POST["fecha_nacimiento"];
     $sueldo = $_POST["sueldo"];
+    $categoria = $_POST["categoria"];
+    $sexo = $_POST["sexo"];
+    $aficiones = $_POST["aficiones"];
+
+    $empleado = array(
+        "nombre" => $nombre,
+        "apellidos" => $apellidos,
+        "fecha_nacimiento" => $fecha_nacimiento,
+        "sueldo" => $sueldo,
+        "categoria" => $categoria,
+        "sexo" => $sexo,
+        "aficiones" => $aficiones
+
+    );
+
 
     if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo)) {
         echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
@@ -86,6 +101,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($fecha_nacimiento_timestamp > $edad_minima_timestamp) {
                     // Si todo está bien, puedes procesar los datos o redirigir a otra página
                     echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+                    
+                    $empleados[] = $empleado;
+
+                    $empleadosJson = json_encode($empleados);
+                    file_put_contents('empleados.json', $empleadosJson);
+
+                    $empleadosJson = file_get_contents('empleados.json');
+                    $empleados = json_decode($empleadosJson, true);
+
+
                 } else {
                     echo "<p style='color: red;'>La fecha de nacimiento debe ser posterior a 1950 y el empleado debe tener más de 18 años.</p>";
                 }
