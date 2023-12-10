@@ -62,6 +62,21 @@
             display: inline-block;
             margin-right: 10px;
         }
+        tr.Peon {
+        background-color: #3366cc; /* Azul para la categoría "peon" */
+    }
+
+    tr.oficial {
+        background-color: #cc0000; /* Rojo para la categoría "oficial" */
+    }
+
+    tr.jefe_departamento {
+        background-color: #33cc33; /* Verde para la categoría "jefe_departamento" */
+    }
+
+    tr.director {
+        background-color: #ffcc00; /* Amarillo para la categoría "director" */
+    }
     </style>
 </head>
 
@@ -144,21 +159,21 @@
                             echo "<p style='color: green;'>Datos enviados correctamente.</p>";
 
                             // Obtener los empleados del archivo JSON si existe
-                        if (file_exists('empleados.json')) {
-                            $empleadosJson = file_get_contents('empleados.json');
-                            $empleados = json_decode($empleadosJson, true);
-                        } else {
-                            $empleados = [];
-                        }
+if (file_exists('empleados.json')) {
+    $empleadosJson = file_get_contents('empleados.json');
+    $empleados = json_decode($empleadosJson, true);
+} else {
+    $empleados = [];
+}
 
-                        // Añadir el nuevo empleado al array de empleados
-                        $empleados[] = $empleado;
+// Añadir el nuevo empleado al array de empleados
+$empleados[] = $empleado;
 
-                        // Convertir el array de empleados a JSON
-                        $empleadosJson = json_encode($empleados);
+// Convertir el array de empleados a JSON
+$empleadosJson = json_encode($empleados);
 
-                        // Guardar todos los empleados en el archivo 'empleados.json'
-                        file_put_contents('empleados.json', $empleadosJson);
+// Guardar todos los empleados en el archivo 'empleados.json'
+file_put_contents('empleados.json', $empleadosJson);
 
                             $tabla_html = "
                             <table border='1'>
@@ -181,17 +196,38 @@
                                 $categoria = $empleado['categoria'];
                                 $sexo = $empleado['sexo'];
                                 $aficiones = $empleado['aficiones'];
-
+                            
+                                // Agrega una clase CSS específica según la categoría del empleado
+                                $clase_css = '';
+                            
+                                switch ($categoria) {
+                                    case 'peon':
+                                        $clase_css = 'Peon';
+                                        break;
+                                    case 'oficial':
+                                        $clase_css = 'oficial';
+                                        break;
+                                    case 'jefe_departamento':
+                                        $clase_css = 'jefe_departamento';
+                                        break;
+                                    case 'director':
+                                        $clase_css = 'director';
+                                        break;
+                                    default:
+                                        echo "<p style='color: red;'>Categoría de empleado no válida.</p>";
+                                        return;
+                                }
+                            
                                 $tabla_html .= "
-                                <tr>
-                                <td>$nombre</td>
-                                <td>$apellidos</td>
-                                <td>$fecha_nacimiento</td>
-                                <td>$sueldo</td>
-                                <td>$categoria</td>
-                                <td>$sexo</td>
-                                <td>$aficiones</td>
-                                </tr>";
+                                    <tr class='$clase_css'>
+                                        <td>$nombre</td>
+                                        <td>$apellidos</td>
+                                        <td>$fecha_nacimiento</td>
+                                        <td>$sueldo</td>
+                                        <td>$categoria</td>
+                                        <td>$sexo</td>
+                                        <td>$aficiones</td>
+                                    </tr>";
                             }
 
                             $tabla_html .= "</table>";
@@ -206,7 +242,7 @@
                             exit();
 
                             // Mostrar la tabla en una nueva página
-                            
+                            echo $tabla_html;
                         } else {
                             echo "<p style='color: red;'>El sueldo debe estar entre $sueldo_minimo y $sueldo_maximo para la categoría seleccionada.</p>";
                         }

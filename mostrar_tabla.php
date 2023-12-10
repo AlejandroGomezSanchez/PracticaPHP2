@@ -14,10 +14,27 @@ unset($_SESSION['tabla_html']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mostrar Tabla</title>
-    <!-- Puedes incluir tu CSS aquí si es necesario -->
+    
+    <style>
+    tr.oficial {
+        background-color: #cc0000; 
+    }
+    tr.jefe_departamento {
+        background-color: #33cc33;
+    }
+
+    tr.director {
+        background-color: #ffcc00; 
+    }
+    tr.Peon {
+        background-color: #3366cc;
+    }
+    </style>
+
+
 </head>
 <body>
-    <!-- Mostrar la tabla HTML -->
+    
     <?php echo $tabla_html; ?>
 </body>
 </html>
