@@ -58,8 +58,6 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-=======
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -86,7 +84,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
->>>>>>> 3c3f4c76c788cabc2cf146e428b412e5de39b337
     <h1>Alta Datos Empleado</h1>
     <form action="/submit_data" method="post">
         <label for="nombre">Nombre: *</label>
