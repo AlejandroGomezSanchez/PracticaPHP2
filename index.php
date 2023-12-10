@@ -88,7 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   
     $sexo = isset($_POST["sexo"]) ? $_POST["sexo"] : "";
-    $aficiones = isset($_POST["aficiones"]) ? implode(", ", $_POST["aficiones"]) : "";
 
     if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo) || empty($categoria)) {
         echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
