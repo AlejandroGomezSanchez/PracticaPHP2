@@ -146,6 +146,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $empleadosJson = file_get_contents('empleados.json');
                     $empleados = json_decode($empleadosJson, true);
+
+                    $tabla_html = "
+                    <table border='1'>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Sueldo</th>
+                            <th>Categoría</th>
+                            <th>Sexo</th>
+                            <th>Aficiones</th>
+                        </tr>
+                        <tr>
+                            <td>$nombre</td>
+                            <td>$apellidos</td>
+                            <td>$fecha_nacimiento</td>
+                            <td>$sueldo</td>
+                            <td>$categoria</td>
+                            <td>$sexo</td>
+                            <td>$aficiones</td>
+                        </tr>
+                    </table>
+                ";
+            
+                // Mostrar la tabla en una nueva página
+                echo $tabla_html;
                     } else {
                         echo "<p style='color: red;'>El sueldo debe estar entre $sueldo_minimo y $sueldo_maximo para la categoría seleccionada.</p>";
                     }
@@ -156,35 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    $tabla_html = "
-        <table border='1'>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Fecha de Nacimiento</th>
-                <th>Sueldo</th>
-                <th>Categoría</th>
-                <th>Sexo</th>
-                <th>Aficiones</th>
-            </tr>
-            <tr>
-                <td>$nombre</td>
-                <td>$apellidos</td>
-                <td>$fecha_nacimiento</td>
-                <td>$sueldo</td>
-                <td>$categoria</td>
-                <td>$sexo</td>
-                <td>$aficiones</td>
-            </tr>
-        </table>
-    ";
-
-    // Mostrar la tabla en una nueva página
-    echo $tabla_html;
-} else {
-    // Redirigir si se intenta acceder directamente al archivo sin enviar datos del formulario
-    header("Location: formulario.php");
-    exit();
+   
 }
 
 
