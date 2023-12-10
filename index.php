@@ -84,8 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
     <h1>Alta Datos Empleado</h1>
-    <form action="/submit_data" method="post">
-        <label for="nombre">Nombre: *</label>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <label for="nombre">Nombre: *</label>
         <input type="text" id="nombre" name="nombre" >
 
         <label for="apellidos">Apellidos: *</label>
