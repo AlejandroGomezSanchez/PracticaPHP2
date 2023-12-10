@@ -58,7 +58,7 @@
     </style>
 </head>
 <body>
-    
+
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los valores del formulario
@@ -86,19 +86,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h1>Alta Datos Empleado</h1>
     <form action="/submit_data" method="post">
         <label for="nombre">Nombre: *</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="nombre" name="nombre" >
 
         <label for="apellidos">Apellidos: *</label>
-        <input type="text" id="apellidos" name="apellidos" required>
+        <input type="text" id="apellidos" name="apellidos" >
 
         <label for="fecha_nacimiento">Fecha de nacimiento: *</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" >
 
         <label for="sueldo">Sueldo: *</label>
-        <input type="text" id="sueldo" name="sueldo" required>
+        <input type="text" id="sueldo" name="sueldo" >
 
         <label for="categoria">Categoría: *</label>
-        <select id="categoria" name="categoria" required>
+        <select id="categoria" name="categoria" >
             <option value="">-- Elige --</option>
             <option value="peon">Peón</option>
             <option value="oficial">Oficial</option>
@@ -107,8 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select>
 
         <label for="sexo">Sexo: *</label>
-        <label><input type="radio" id="sexo" name="sexo" value="hombre" required> Hombre</label>
-        <label><input type="radio" id="sexo" name="sexo" value="mujer" required> Mujer</label>
+        <label><input type="radio" id="sexo" name="sexo" value="hombre" > Hombre</label>
+        <label><input type="radio" id="sexo" name="sexo" value="mujer" > Mujer</label>
 
         <label for="aficiones">Aficiones: *</label>
         <label><input type="checkbox" id="aficiones" name="aficiones" value="natacion"> Natación</label>
