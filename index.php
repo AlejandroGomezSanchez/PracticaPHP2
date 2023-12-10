@@ -144,21 +144,21 @@
                             echo "<p style='color: green;'>Datos enviados correctamente.</p>";
 
                             // Obtener los empleados del archivo JSON si existe
-if (file_exists('empleados.json')) {
-    $empleadosJson = file_get_contents('empleados.json');
-    $empleados = json_decode($empleadosJson, true);
-} else {
-    $empleados = [];
-}
+                        if (file_exists('empleados.json')) {
+                            $empleadosJson = file_get_contents('empleados.json');
+                            $empleados = json_decode($empleadosJson, true);
+                        } else {
+                            $empleados = [];
+                        }
 
-// Añadir el nuevo empleado al array de empleados
-$empleados[] = $empleado;
+                        // Añadir el nuevo empleado al array de empleados
+                        $empleados[] = $empleado;
 
-// Convertir el array de empleados a JSON
-$empleadosJson = json_encode($empleados);
+                        // Convertir el array de empleados a JSON
+                        $empleadosJson = json_encode($empleados);
 
-// Guardar todos los empleados en el archivo 'empleados.json'
-file_put_contents('empleados.json', $empleadosJson);
+                        // Guardar todos los empleados en el archivo 'empleados.json'
+                        file_put_contents('empleados.json', $empleadosJson);
 
                             $tabla_html = "
                             <table border='1'>
