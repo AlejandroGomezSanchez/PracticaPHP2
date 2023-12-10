@@ -63,9 +63,10 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre"];
     $apellidos = $_POST["apellidos"];
+    $fecha_nacimiento = $_POST["fecha_nacimiento"];
     $sueldo = $_POST["sueldo"];
 
-    if (empty($nombre) || empty($apellidos) || empty($sueldo)) {
+    if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo)) {
         echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
     } else {
         // Validar el nombre
@@ -75,18 +76,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Validar los apellidos
             if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?(\s[a-zA-Z]+(?:-[a-zA-Z]+)?)?$/", $apellidos) || substr_count($apellidos, ' ') < 1) {
                 echo "<p style='color: red;'>Los apellidos deben constar de al menos dos palabras, cumpliendo los mismos requerimientos que el nombre.</p>";
-            } elseif (!preg_match("/^[0-9]+$/", $sueldo)) {
-                echo "<p style='color: red;'>El campo de sueldo solo debe contener letras.</p>";
             } else {
-                // Puedes realizar otras validaciones aquí si es necesario
+                // Validar la fecha de nacimiento
+                $fecha_actual = new DateTime();
+                $fecha_nacimiento_obj = DateTime::createFromFormat('d/m/Y', $fecha_nacimiento);
+                
+                if (!$fecha_nacimiento_obj || $fecha_nacimiento_obj > $fecha_actual || $fecha_nacimiento_obj < new DateTime('1950-01-01')) {
+                    echo "<p style='color: red;'>La fecha de nacimiento no es válida o el empleado no tiene al menos 18 años.</p>";
+                } elseif (!preg_match("/^[0-9]+$/", $sueldo)) {
+                    echo "<p style='color: red;'>El campo de sueldo solo debe contener letras.</p>";
+                } else {
+                    // Puedes realizar otras validaciones aquí si es necesario
 
-                // Si todo está bien, puedes procesar los datos o redirigir a otra página
-                echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+                    // Si todo está bien, puedes procesar los datos o redirigir a otra página
+                    echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+                }
             }
         }
     }
 }
 ?>
+
+
 
 
 
