@@ -58,6 +58,35 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
+=======
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = $_POST["nombre"];
+    $apellidos = $_POST["apellidos"];
+    $sueldo = $_POST["sueldo"];
+
+    if (empty($nombre) || empty($apellidos) || empty($sueldo)) {
+        echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
+    } else {
+        // Validar el nombre
+        if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?$/", $nombre) || strlen($nombre) < 3) {
+            echo "<p style='color: red;'>El nombre debe tener al menos 3 letras en la palabra, no se permiten números ni caracteres especiales, al menos una palabra.</p>";
+        } elseif (!preg_match("/^[a-zA-Z]+$/", $apellidos)) {
+            echo "<p style='color: red;'>Los campos de apellidos solo deben contener letras.</p>";
+        } else {
+            // Puedes realizar otras validaciones aquí si es necesario
+
+            // Si todo está bien, puedes procesar los datos o redirigir a otra página
+            echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+        }
+    }
+}
+?>
+
+
+>>>>>>> 3c3f4c76c788cabc2cf146e428b412e5de39b337
     <h1>Alta Datos Empleado</h1>
     <form action="/submit_data" method="post">
         <label for="nombre">Nombre: *</label>
