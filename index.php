@@ -61,7 +61,7 @@
 <?php
 
 
-    echo "Nombre";
+    echo "Pedro";
     echo "Email";
 
 ?>
