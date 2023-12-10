@@ -64,12 +64,17 @@
 <body>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+
     $nombre = $_POST["nombre"];
     $apellidos = $_POST["apellidos"];
     $fecha_nacimiento = $_POST["fecha_nacimiento"];
     $sueldo = $_POST["sueldo"];
     $categoria = $_POST["categoria"];
-    
+  
+    $sexo = isset($_POST["sexo"]) ? $_POST["sexo"] : "";
+    $aficiones = isset($_POST["aficiones"]) ? implode(", ", $_POST["aficiones"]) : "";
 
     if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo) || empty($categoria)) {
         echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
@@ -129,7 +134,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
+
+    $tabla_html = "
+        <table border='1'>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Sueldo</th>
+                <th>Categoría</th>
+                <th>Sexo</th>
+                <th>Aficiones</th>
+            </tr>
+            <tr>
+                <td>$nombre</td>
+                <td>$apellidos</td>
+                <td>$fecha_nacimiento</td>
+                <td>$sueldo</td>
+                <td>$categoria</td>
+                <td>$sexo</td>
+                <td>$aficiones</td>
+            </tr>
+        </table>
+    ";
+
+    // Mostrar la tabla en una nueva página
+    echo $tabla_html;
+} else {
+    // Redirigir si se intenta acceder directamente al archivo sin enviar datos del formulario
+    header("Location: formulario.php");
+    exit();
 }
+
+
+
+
 ?>
 
 
@@ -167,11 +206,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label><input type="radio" id="sexo" name="sexo" value="mujer" > Mujer</label>
 
         <label for="aficiones">Aficiones: *</label>
-        <label class="checkbox"><input type="checkbox" id="Dep" name="aficiones" value="Deportes"> Deportes</label>
-        <label class="checkbox"><input type="checkbox" id="Lec" name="aficiones" value="Lectura"> Lectura</label>
-        <label class="checkbox"><input type="checkbox" id="Mus" name="aficiones" value="Musica"> Musica</label>
-        <label class="checkbox"><input type="checkbox" id="Cin" name="aficiones" value="Cine"> Cine</label>
-        <label class="checkbox"><input type="checkbox" id="Idio" name="aficiones" value="Idiomas"> Idiomas</label>
+        <label class="checkbox"><input type="checkbox" id="aficiones" name="aficiones" value="Deportes"> Deportes</label>
+        <label class="checkbox"><input type="checkbox" id="aficiones" name="aficiones" value="Lectura"> Lectura</label>
+        <label class="checkbox"><input type="checkbox" id="aficiones" name="aficiones" value="Musica"> Musica</label>
+        <label class="checkbox"><input type="checkbox" id="aficiones" name="aficiones" value="Cine"> Cine</label>
+        <label class="checkbox"><input type="checkbox" id="aficiones" name="aficiones" value="Idiomas"> Idiomas</label>
 
         <input type="submit" value="ENVIAR">
 
