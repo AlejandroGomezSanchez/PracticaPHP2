@@ -69,7 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_nacimiento = $_POST["fecha_nacimiento"];
     $sueldo = $_POST["sueldo"];
     $categoria = $_POST["categoria"];
-  
     
 
     if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo) || empty($categoria)) {
@@ -162,17 +161,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="jefe_departamento">Jefe Departamento</option>
             <option value="director">Director</option>
         </select>
+
         <label for="sexo">Sexo: *</label>
-<label><input type="radio" id="sexo_hombre" name="sexo" value="hombre" > Hombre</label>
-<label><input type="radio" id="sexo_mujer" name="sexo" value="mujer" > Mujer</label>
+        <label><input type="radio" id="sexo" name="sexo" value="hombre" > Hombre</label>
+        <label><input type="radio" id="sexo" name="sexo" value="mujer" > Mujer</label>
 
-<label for="aficiones">Aficiones: *</label>
-<label class="checkbox"><input type="checkbox" id="aficiones_deportes" name="aficiones[]" value="Deportes"> Deportes</label>
-<label class="checkbox"><input type="checkbox" id="aficiones_lectura" name="aficiones[]" value="Lectura"> Lectura</label>
-<label class="checkbox"><input type="checkbox" id="aficiones_musica" name="aficiones[]" value="Musica"> Musica</label>
-<label class="checkbox"><input type="checkbox" id="aficiones_cine" name="aficiones[]" value="Cine"> Cine</label>
-<label class="checkbox"><input type="checkbox" id="aficiones_idiomas" name="aficiones[]" value="Idiomas"> Idiomas</label>
-
+        <label for="aficiones">Aficiones: *</label>
+        <label class="checkbox"><input type="checkbox" id="Dep" name="aficiones" value="Deportes"> Deportes</label>
+        <label class="checkbox"><input type="checkbox" id="Lec" name="aficiones" value="Lectura"> Lectura</label>
+        <label class="checkbox"><input type="checkbox" id="Mus" name="aficiones" value="Musica"> Musica</label>
+        <label class="checkbox"><input type="checkbox" id="Cin" name="aficiones" value="Cine"> Cine</label>
+        <label class="checkbox"><input type="checkbox" id="Idio" name="aficiones" value="Idiomas"> Idiomas</label>
 
         <input type="submit" value="ENVIAR">
 
