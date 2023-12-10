@@ -188,7 +188,10 @@ file_put_contents('empleados.json', $empleadosJson);
                             </tr>";
 
                             // Iterar sobre cada empleado y agregar una fila a la tabla por cada uno
+                            $totalSal = 0;
+                            $cont = 0;
                             foreach ($empleados as $empleado) {
+                                $cont = $cont+1;
                                 $nombre = $empleado['nombre'];
                                 $apellidos = $empleado['apellidos'];
                                 $fecha_nacimiento = $empleado['fecha_nacimiento'];
@@ -196,7 +199,7 @@ file_put_contents('empleados.json', $empleadosJson);
                                 $categoria = $empleado['categoria'];
                                 $sexo = $empleado['sexo'];
                                 $aficiones = $empleado['aficiones'];
-                            
+                                $totalSal += $sueldo;
                                 // Agrega una clase CSS específica según la categoría del empleado
                                 $clase_css = '';
                             
@@ -228,8 +231,16 @@ file_put_contents('empleados.json', $empleadosJson);
                                         <td>$sexo</td>
                                         <td>$aficiones</td>
                                     </tr>";
+                                    
                             }
 
+                            $mediaSal = $totalSal / $cont;
+                            $tabla_html .= "<tr>
+                                                <td>Suma de salarios:</td>
+                                                <td>$totalSal</td>
+                                                <td>Media de salarios:</td>
+                                                <td>$mediaSal</td>
+                                                </tr>";  
                             $tabla_html .= "</table>";
 
 
