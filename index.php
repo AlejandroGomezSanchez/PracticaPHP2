@@ -169,6 +169,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </tr>
                     </table>
                 ";
+
+                 // Almacenar la tabla HTML en una variable de sesión
+    session_start();
+    $_SESSION['tabla_html'] = $tabla_html;
+
+    // Redirigir a una nueva página que mostrará la tabla
+    header("Location: mostrar_tabla.php");
+    exit();
             
                 // Mostrar la tabla en una nueva página
                 echo $tabla_html;
