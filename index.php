@@ -71,17 +71,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validar el nombre
         if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?$/", $nombre) || strlen($nombre) < 3) {
             echo "<p style='color: red;'>El nombre debe tener al menos 3 letras en la palabra, no se permiten números ni caracteres especiales, al menos una palabra.</p>";
-        } elseif (!preg_match("/^[a-zA-Z]+$/", $apellidos)) {
-            echo "<p style='color: red;'>Los campos de apellidos solo deben contener letras.</p>";
         } else {
-            // Puedes realizar otras validaciones aquí si es necesario
+            // Validar los apellidos
+            if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?(\s[a-zA-Z]+(?:-[a-zA-Z]+)?)?$/", $apellidos) || substr_count($apellidos, ' ') < 1) {
+                echo "<p style='color: red;'>Los apellidos deben constar de al menos dos palabras, cumpliendo los mismos requerimientos que el nombre.</p>";
+            } elseif (!preg_match("/^[a-zA-Z]+$/", $sueldo)) {
+                echo "<p style='color: red;'>El campo de sueldo solo debe contener letras.</p>";
+            } else {
+                // Puedes realizar otras validaciones aquí si es necesario
 
-            // Si todo está bien, puedes procesar los datos o redirigir a otra página
-            echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+                // Si todo está bien, puedes procesar los datos o redirigir a otra página
+                echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+            }
         }
     }
 }
 ?>
+
 
 
     <h1>Alta Datos Empleado</h1>
