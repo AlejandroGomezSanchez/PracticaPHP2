@@ -89,7 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
     $sexo = isset($_POST["sexo"]) ? $_POST["sexo"] : "";
 
-
     if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo) || empty($categoria)) {
         echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
     } else {
@@ -149,30 +148,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $empleados = json_decode($empleadosJson, true);
 
                     $tabla_html = "
-    <table border='1'>
-        <tr>
-            <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Fecha de Nacimiento</th>
-            <th>Sueldo</th>
-            <th>Categoría</th>
-            <th>Sexo</th>
-            <th>Aficiones</th>
-        </tr>
-        <tr>
-            <td>$nombre</td>
-            <td>$apellidos</td>
-            <td>$fecha_nacimiento</td>
-            <td>$sueldo</td>
-            <td>$categoria</td>
-            <td>$sexo</td>
-            <td>$aficiones</td>
-        </tr>
-    </table>
-";
-
-    // Mostrar la tabla en una nueva página
-    echo $tabla_html;
+                    <table border='1'>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Sueldo</th>
+                            <th>Categoría</th>
+                            <th>Sexo</th>
+                            <th>Aficiones</th>
+                        </tr>
+                        <tr>
+                            <td>$nombre</td>
+                            <td>$apellidos</td>
+                            <td>$fecha_nacimiento</td>
+                            <td>$sueldo</td>
+                            <td>$categoria</td>
+                            <td>$sexo</td>
+                            <td>$aficiones</td>
+                        </tr>
+                    </table>
+                ";
+            
+                // Mostrar la tabla en una nueva página
+                echo $tabla_html;
                     } else {
                         echo "<p style='color: red;'>El sueldo debe estar entre $sueldo_minimo y $sueldo_maximo para la categoría seleccionada.</p>";
                     }
@@ -183,8 +182,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    
-} 
+   
+}
 
 
 
