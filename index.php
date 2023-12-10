@@ -52,8 +52,12 @@
         form {
             max-width: 600px;
             margin: 0 auto;
+        }
 
-
+        /* Estilo para checkboxes */
+        label.checkbox {
+            display: inline-block;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -79,8 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     );
 
+    
 
-    if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo)) {
+    if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo) || empty($categoria)) {
         echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
     } else {
         // Validar el nombre
@@ -91,12 +96,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?(\s[a-zA-Z]+(?:-[a-zA-Z]+)?)?$/", $apellidos) || substr_count($apellidos, ' ') < 1) {
                 echo "<p style='color: red;'>Los apellidos deben constar de al menos dos palabras, cumpliendo los mismos requerimientos que el nombre.</p>";
             } elseif (!preg_match("/^[0-9]+$/", $sueldo)) {
-                echo "<p style='color: red;'>El campo de sueldo solo debe contener letras.</p>";
+                echo "<p style='color: red;'>El campo de sueldo solo debe contener números.</p>";
             } else {
                 // Validar la fecha de nacimiento y la edad
                 $fecha_nacimiento_timestamp = strtotime($fecha_nacimiento);
                 $edad_minima_timestamp = strtotime('1950-01-01');
-                $edad_minima_timestamp += 18 * 365 * 24 * 60 * 60; // 18 años en segundos
+                $fecha_actual = date('Y-m-d');
+                $fechaMaxima = strtotime($fecha_actual) - 18 * 365 * 24 * 60 * 60; // 18 años en segundos
 
                 if ($fecha_nacimiento_timestamp > $edad_minima_timestamp) {
                     // Si todo está bien, puedes procesar los datos o redirigir a otra página
@@ -111,6 +117,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $empleados = json_decode($empleadosJson, true);
 
 
+                if ($fecha_nacimiento_timestamp > $edad_minima_timestamp && $fecha_nacimiento_timestamp < $fechaMaxima) {
+                    // Validar el sueldo según la categoría
+                    $sueldo_minimo = 0;
+                    $sueldo_maximo = 0;
+
+                    switch ($categoria) {
+                        case 'peon':
+                            $sueldo_minimo = 600;
+                            $sueldo_maximo = 1200;
+                            break;
+                        case 'oficial':
+                            $sueldo_minimo = 900;
+                            $sueldo_maximo = 1500;
+                            break;
+                        case 'jefe_departamento':
+                            $sueldo_minimo = 1400;
+                            $sueldo_maximo = 2500;
+                            break;
+                        case 'director':
+                            $sueldo_minimo = 2000;
+                            $sueldo_maximo = 3000;
+                            break;
+                        default:
+                            echo "<p style='color: red;'>Categoría de empleado no válida.</p>";
+                            return;
+                    }
+
+                    if ($sueldo >= $sueldo_minimo && $sueldo <= $sueldo_maximo) {
+                        // Si todo está bien, puedes procesar los datos o redirigir a otra página
+                        echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+                    } else {
+                        echo "<p style='color: red;'>El sueldo debe estar entre $sueldo_minimo y $sueldo_maximo para la categoría seleccionada.</p>";
+                    }
                 } else {
                     echo "<p style='color: red;'>La fecha de nacimiento debe ser posterior a 1950 y el empleado debe tener más de 18 años.</p>";
                 }
@@ -155,9 +194,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label><input type="radio" id="sexo" name="sexo" value="mujer" > Mujer</label>
 
         <label for="aficiones">Aficiones: *</label>
-        <label><input type="checkbox" id="aficiones" name="aficiones" value="natacion"> Natación</label>
-        <label><input type="checkbox" id="aficiones" name="aficiones" value="padel"> Pádel</label>
-        <label><input type="checkbox" id="aficiones" name="aficiones" value="leer"> Leer</label>
+        <label class="checkbox"><input type="checkbox" id="Dep" name="aficiones" value="Deportes"> Deportes</label>
+        <label class="checkbox"><input type="checkbox" id="Lec" name="aficiones" value="Lectura"> Lectura</label>
+        <label class="checkbox"><input type="checkbox" id="Mus" name="aficiones" value="Musica"> Musica</label>
+        <label class="checkbox"><input type="checkbox" id="Cin" name="aficiones" value="Cine"> Cine</label>
+        <label class="checkbox"><input type="checkbox" id="Idio" name="aficiones" value="Idiomas"> Idiomas</label>
 
         <input type="submit" value="ENVIAR">
 
