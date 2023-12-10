@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fecha_actual = new DateTime();
                 $fecha_nacimiento_obj = DateTime::createFromFormat('d/m/Y', $fecha_nacimiento);
                 
-                if (!$fecha_nacimiento_obj || $fecha_nacimiento_obj > $fecha_actual || $fecha_nacimiento_obj < new DateTime('1950-01-01')) {
+                if ($fecha_nacimiento_obj > $fecha_actual-6570) {
                     echo "<p style='color: red;'>La fecha de nacimiento no es válida o el empleado no tiene al menos 18 años.</p>";
                 } elseif (!preg_match("/^[0-9]+$/", $sueldo)) {
                     echo "<p style='color: red;'>El campo de sueldo solo debe contener letras.</p>";
