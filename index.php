@@ -78,13 +78,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<p style='color: red;'>Los apellidos deben constar de al menos dos palabras, cumpliendo los mismos requerimientos que el nombre.</p>";
             } else {
                 // Validar la fecha de nacimiento
-                $fecha_actual = new DateTime();
-                $fecha_nacimiento_obj = DateTime::createFromFormat('d/m/Y', $fecha_nacimiento);
+               
+               
+                
+                
+                $fechaInicio = new DateTime('1950-01-01'); // Fecha de inicio fija
+                
+                // Obtener la fecha actual y restar 18 años
+                $fechaActual = new DateTime();
+                $fechaFin = $fechaActual->sub(new DateInterval('P18Y'));
+                $fecha_nacimiento_obj = DateTime::createFromFormat('Y/M/D', $fecha_nacimiento);
 
-                if (!$fecha_nacimiento_obj || $fecha_nacimiento_obj > $fecha_actual || $fecha_nacimiento_obj < new DateTime('1950-01-01')) {
-                    echo "<p style='color: red;'>La fecha de nacimiento no es válida o el empleado no tiene al menos 18 años.</p>";
-                } elseif ($fecha_nacimiento_obj > $fecha_actual->modify('-18 years')) {
-                    echo "<p style='color: red;'>El empleado debe tener al menos 18 años.</p>";
+                // Fecha a comprobar
+               
+
+
+
+ 
+                // Comprobar si la fecha está dentro del rango
+                if (!$fechaAComprobar >= $fechaInicio || !$fechaAComprobar <= $fechaFin) {
+                    echo "Fecha incorrecta";
+             
                 } elseif (!preg_match("/^[a-zA-Z]+$/", $sueldo)) {
                     echo "<p style='color: red;'>El campo de sueldo solo debe contener letras.</p>";
                 } else {
