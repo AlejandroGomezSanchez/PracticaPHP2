@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,9 @@
             margin-top: 10px;
         }
 
-        input[type="text"], input[type="date"], select {
+        input[type="text"],
+        input[type="date"],
+        select {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -57,61 +60,70 @@
         }
     </style>
 </head>
+
 <body>
 
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST["nombre"];
-    $apellidos = $_POST["apellidos"];
-    $fecha_nacimiento = $_POST["fecha_nacimiento"];
-    $sueldo = $_POST["sueldo"];
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nombre = $_POST["nombre"];
+        $apellidos = $_POST["apellidos"];
+        $sueldo = $_POST["sueldo"];
 
-    if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo)) {
-        echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
-    } else {
-        // Validar el nombre
-        if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?$/", $nombre) || strlen($nombre) < 3) {
-            echo "<p style='color: red;'>El nombre debe tener al menos 3 letras en la palabra, no se permiten números ni caracteres especiales, al menos una palabra.</p>";
+
+
+        if (empty($nombre) || empty($apellidos) || empty($sueldo)) {
+            echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
         } else {
-            // Validar los apellidos
-            if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?(\s[a-zA-Z]+(?:-[a-zA-Z]+)?)?$/", $apellidos) || substr_count($apellidos, ' ') < 1) {
-                echo "<p style='color: red;'>Los apellidos deben constar de al menos dos palabras, cumpliendo los mismos requerimientos que el nombre.</p>";
+            // Validar el nombre
+            if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?$/", $nombre) || strlen($nombre) < 3) {
+                echo "<p style='color: red;'>El nombre debe tener al menos 3 letras en la palabra, no se permiten números ni caracteres especiales, al menos una palabra.</p>";
             } else {
-                // Validar la fecha de nacimiento
-               
-               
-                
-                
-                $fechaInicio = new DateTime('1950-01-01'); // Fecha de inicio fija
-                
-                // Obtener la fecha actual y restar 18 años
-                $fechaActual = new DateTime();
-                $fechaFin = $fechaActual->sub(new DateInterval('P18Y'));
-                $fecha_nacimiento_obj = DateTime::createFromFormat('Y/M/D', $fecha_nacimiento);
-
-                // Fecha a comprobar
-               
-
-
-
- 
-                // Comprobar si la fecha está dentro del rango
-                if (!$fechaAComprobar >= $fechaInicio || !$fechaAComprobar <= $fechaFin) {
-                    echo "Fecha incorrecta";
-             
-                } elseif (!preg_match("/^[a-zA-Z]+$/", $sueldo)) {
+                // Validar los apellidos
+                if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?(\s[a-zA-Z]+(?:-[a-zA-Z]+)?)?$/", $apellidos) || substr_count($apellidos, ' ') < 1) {
+                    echo "<p style='color: red;'>Los apellidos deben constar de al menos dos palabras, cumpliendo los mismos requerimientos que el nombre.</p>";
+                } elseif (!preg_match("/^[0-9]+$/", $sueldo)) {
                     echo "<p style='color: red;'>El campo de sueldo solo debe contener letras.</p>";
                 } else {
                     // Puedes realizar otras validaciones aquí si es necesario
-
+    
                     // Si todo está bien, puedes procesar los datos o redirigir a otra página
                     echo "<p style='color: green;'>Datos enviados correctamente.</p>";
                 }
             }
+            if (!preg_match("/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/", $fecha_nacimiento)) {
+
+                echo "<p style='color: red;'>La fecha de nacimiento debe tener el formato dd/mm/aaaa.</p>";
+
+            } else {
+
+                list($dia, $mes, $año) = explode('/', $fecha_nacimiento);
+
+                $año_actual = date('Y');
+
+                $año_minimo = 1950;
+
+
+                if ($año < $año_minimo || $año > $año_actual) {
+
+                    echo "<p style='color: red;'>La fecha de nacimiento debe ser una fecha válida, mayor que 01/01/1950 y menor que la actual.</p>";
+
+                } elseif ((time() - strtotime("$año-$mes-$dia")) < 18 * 31556926) {
+
+                    echo "<p style='color: red;'>El empleado debe tener al menos 18 años.</p>";
+
+                } else {
+
+                    // Si todo está bien, puedes procesar los datos o redirigir a otra página
+    
+                    echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+
+                }
+
+            }
         }
     }
-}
-?>
+    ?>
+
 
 
 
@@ -120,20 +132,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <h1>Alta Datos Empleado</h1>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <label for="nombre">Nombre: *</label>
-        <input type="text" id="nombre" name="nombre" >
+        <label for="nombre">Nombre: *</label>
+        <input type="text" id="nombre" name="nombre">
 
         <label for="apellidos">Apellidos: *</label>
-        <input type="text" id="apellidos" name="apellidos" >
+        <input type="text" id="apellidos" name="apellidos">
 
         <label for="fecha_nacimiento">Fecha de nacimiento: *</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" >
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
 
         <label for="sueldo">Sueldo: *</label>
-        <input type="text" id="sueldo" name="sueldo" >
+        <input type="text" id="sueldo" name="sueldo">
 
         <label for="categoria">Categoría: *</label>
-        <select id="categoria" name="categoria" >
+        <select id="categoria" name="categoria">
             <option value="">-- Elige --</option>
             <option value="peon">Peón</option>
             <option value="oficial">Oficial</option>
@@ -142,8 +154,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </select>
 
         <label for="sexo">Sexo: *</label>
-        <label><input type="radio" id="sexo" name="sexo" value="hombre" > Hombre</label>
-        <label><input type="radio" id="sexo" name="sexo" value="mujer" > Mujer</label>
+        <label><input type="radio" id="sexo" name="sexo" value="hombre"> Hombre</label>
+        <label><input type="radio" id="sexo" name="sexo" value="mujer"> Mujer</label>
 
         <label for="aficiones">Aficiones: *</label>
         <label><input type="checkbox" id="aficiones" name="aficiones" value="natacion"> Natación</label>
@@ -156,4 +168,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="reset" value="LIMPIAR">
     </form>
 </body>
+
 </html>
