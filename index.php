@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Validar los apellidos
             if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?(\s[a-zA-Z]+(?:-[a-zA-Z]+)?)?$/", $apellidos) || substr_count($apellidos, ' ') < 1) {
                 echo "<p style='color: red;'>Los apellidos deben constar de al menos dos palabras, cumpliendo los mismos requerimientos que el nombre.</p>";
-            } elseif (!preg_match("/^[a-zA-Z]+$/", $sueldo)) {
+            } elseif (!preg_match("/^[0-9]+$/", $sueldo)) {
                 echo "<p style='color: red;'>El campo de sueldo solo debe contener letras.</p>";
             } else {
                 // Puedes realizar otras validaciones aquí si es necesario
