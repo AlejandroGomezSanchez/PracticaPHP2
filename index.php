@@ -104,19 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fecha_actual = date('Y-m-d');
                 $fechaMaxima = strtotime($fecha_actual) - 18 * 365 * 24 * 60 * 60; // 18 años en segundos
 
-                if ($fecha_nacimiento_timestamp > $edad_minima_timestamp) {
-                    // Si todo está bien, puedes procesar los datos o redirigir a otra página
-                    echo "<p style='color: green;'>Datos enviados correctamente.</p>";
-                    
-                    $empleados[] = $empleado;
-
-                    $empleadosJson = json_encode($empleados);
-                    file_put_contents('empleados.json', $empleadosJson);
-
-                    $empleadosJson = file_get_contents('empleados.json');
-                    $empleados = json_decode($empleadosJson, true);
-
-
                 if ($fecha_nacimiento_timestamp > $edad_minima_timestamp && $fecha_nacimiento_timestamp < $fechaMaxima) {
                     // Validar el sueldo según la categoría
                     $sueldo_minimo = 0;
@@ -147,6 +134,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($sueldo >= $sueldo_minimo && $sueldo <= $sueldo_maximo) {
                         // Si todo está bien, puedes procesar los datos o redirigir a otra página
                         echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+
+                        $empleados[] = $empleado;
+
+                    $empleadosJson = json_encode($empleados);
+                    file_put_contents('empleados.json', $empleadosJson);
+
+                    $empleadosJson = file_get_contents('empleados.json');
+                    $empleados = json_decode($empleadosJson, true);
                     } else {
                         echo "<p style='color: red;'>El sueldo debe estar entre $sueldo_minimo y $sueldo_maximo para la categoría seleccionada.</p>";
                     }
