@@ -61,20 +61,20 @@
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener los valores del formulario
     $nombre = $_POST["nombre"];
     $apellidos = $_POST["apellidos"];
     $sueldo = $_POST["sueldo"];
 
-    // Validar que los campos estén rellenos
     if (empty($nombre) || empty($apellidos) || empty($sueldo)) {
         echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
     } else {
-        // Validar que los campos de texto solo contengan letras
-        if (!preg_match("/^[a-zA-Z]+$/", $nombre) || !preg_match("/^[a-zA-Z]+$/", $apellidos)) {
-            echo "<p style='color: red;'>Los campos de nombre y apellidos solo deben contener letras.</p>";
+        // Validar el nombre
+        if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?$/", $nombre) || strlen($nombre) < 3) {
+            echo "<p style='color: red;'>El nombre debe tener al menos 3 letras en la palabra, no se permiten números ni caracteres especiales, al menos una palabra.</p>";
+        } elseif (!preg_match("/^[a-zA-Z]+$/", $apellidos)) {
+            echo "<p style='color: red;'>Los campos de apellidos solo deben contener letras.</p>";
         } else {
-            // Aquí puedes realizar otras validaciones si es necesario
+            // Puedes realizar otras validaciones aquí si es necesario
 
             // Si todo está bien, puedes procesar los datos o redirigir a otra página
             echo "<p style='color: green;'>Datos enviados correctamente.</p>";
@@ -82,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
     <h1>Alta Datos Empleado</h1>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
