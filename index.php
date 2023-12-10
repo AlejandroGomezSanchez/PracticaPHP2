@@ -72,6 +72,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_nacimiento = $_POST["fecha_nacimiento"];
     $sueldo = $_POST["sueldo"];
     $categoria = $_POST["categoria"];
+    $sexo = $_POST["sexo"];
+    $aficiones = $_POST["aficiones"];
+
+    $empleado = array(
+        "nombre" => $nombre,
+        "apellidos" => $apellidos,
+        "fecha_nacimiento" => $fecha_nacimiento,
+        "sueldo" => $sueldo,
+        "categoria" => $categoria,
+        "sexo" => $sexo,
+        "aficiones" => $aficiones
+
+    );
+
   
     $sexo = isset($_POST["sexo"]) ? $_POST["sexo"] : "";
     $aficiones = isset($_POST["aficiones"]) ? implode(", ", $_POST["aficiones"]) : "";
@@ -125,6 +139,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($sueldo >= $sueldo_minimo && $sueldo <= $sueldo_maximo) {
                         // Si todo está bien, puedes procesar los datos o redirigir a otra página
                         echo "<p style='color: green;'>Datos enviados correctamente.</p>";
+
+                        $empleados[] = $empleado;
+
+                    $empleadosJson = json_encode($empleados);
+                    file_put_contents('empleados.json', $empleadosJson);
+
+                    $empleadosJson = file_get_contents('empleados.json');
+                    $empleados = json_decode($empleadosJson, true);
                     } else {
                         echo "<p style='color: red;'>El sueldo debe estar entre $sueldo_minimo y $sueldo_maximo para la categoría seleccionada.</p>";
                     }
