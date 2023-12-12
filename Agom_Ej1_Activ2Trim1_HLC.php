@@ -159,7 +159,7 @@
                             echo "<p style='color: green;'>Datos enviados correctamente.</p>";
 
                             // Obtener los empleados del archivo JSON si existe
-if (file_exists('empleados.json')) {
+if (file_exists('Agom_ArchEmpl_Activ2Trim1_HLC.json')) {
     $empleadosJson = file_get_contents('empleados.json');
     $empleados = json_decode($empleadosJson, true);
 } else {
@@ -173,7 +173,7 @@ $empleados[] = $empleado;
 $empleadosJson = json_encode($empleados);
 
 // Guardar todos los empleados en el archivo 'empleados.json'
-file_put_contents('empleados.json', $empleadosJson);
+file_put_contents('Agom_ArchEmpl_Activ2Trim1_HLC.json', $empleadosJson);
 
                             $tabla_html = "
                             <table border='1'>
@@ -249,11 +249,10 @@ file_put_contents('empleados.json', $empleadosJson);
                             $_SESSION['tabla_html'] = $tabla_html;
 
                             // Redirigir a una nueva página que mostrará la tabla
-                            header("Location: mostrar_tabla.php");
+                            header("Location: Agom_Ej2_Activ2Trim1_HLC.php");
                             exit();
 
-                            // Mostrar la tabla en una nueva página
-                            echo $tabla_html;
+                            
                         } else {
                             echo "<p style='color: red;'>El sueldo debe estar entre $sueldo_minimo y $sueldo_maximo para la categoría seleccionada.</p>";
                         }
