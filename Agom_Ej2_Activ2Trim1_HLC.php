@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-// Obtener la tabla HTML almacenada en la variable de sesión
+
 $tabla_html = isset($_SESSION['tabla_html']) ? $_SESSION['tabla_html'] : "";
 
-// Limpiar la variable de sesión
+
 unset($_SESSION['tabla_html']);
 ?>
 

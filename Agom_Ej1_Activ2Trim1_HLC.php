@@ -57,25 +57,24 @@
             margin: 0 auto;
         }
 
-        /* Estilo para checkboxes */
         label.checkbox {
             display: inline-block;
             margin-right: 10px;
         }
         tr.Peon {
-        background-color: #3366cc; /* Azul para la categoría "peon" */
+        background-color: #3366cc; 
     }
 
     tr.oficial {
-        background-color: #cc0000; /* Rojo para la categoría "oficial" */
-    }
+        background-color: #cc0000; 
+        }
 
     tr.jefe_departamento {
-        background-color: #33cc33; /* Verde para la categoría "jefe_departamento" */
+        background-color: #33cc33; 
     }
 
     tr.director {
-        background-color: #ffcc00; /* Amarillo para la categoría "director" */
+        background-color: #ffcc00; 
     }
     </style>
 </head>
@@ -111,24 +110,24 @@
         if (empty($nombre) || empty($apellidos) || empty($fecha_nacimiento) || empty($sueldo) || empty($categoria)) {
             echo "<p style='color: red;'>Todos los campos son obligatorios.</p>";
         } else {
-            // Validar el nombre
+            
             if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?$/", $nombre) || strlen($nombre) < 3) {
                 echo "<p style='color: red;'>El nombre debe tener al menos 3 letras en la palabra, no se permiten números ni caracteres especiales, al menos una palabra.</p>";
             } else {
-                // Validar los apellidos
+                
                 if (!preg_match("/^[a-zA-Z]+(?:-[a-zA-Z]+)?(\s[a-zA-Z]+(?:-[a-zA-Z]+)?)?$/", $apellidos) || substr_count($apellidos, ' ') < 1) {
                     echo "<p style='color: red;'>Los apellidos deben constar de al menos dos palabras, cumpliendo los mismos requerimientos que el nombre.</p>";
                 } elseif (!preg_match("/^[0-9]+$/", $sueldo)) {
                     echo "<p style='color: red;'>El campo de sueldo solo debe contener números.</p>";
                 } else {
-                    // Validar la fecha de nacimiento y la edad
+                    
                     $fecha_nacimiento_timestamp = strtotime($fecha_nacimiento);
                     $edad_minima_timestamp = strtotime('1950-01-01');
                     $fecha_actual = date('Y-m-d');
                     $fechaMaxima = strtotime($fecha_actual) - 18 * 365 * 24 * 60 * 60; // 18 años en segundos
 
                     if ($fecha_nacimiento_timestamp > $edad_minima_timestamp && $fecha_nacimiento_timestamp < $fechaMaxima) {
-                        // Validar el sueldo según la categoría
+                        
                         $sueldo_minimo = 0;
                         $sueldo_maximo = 0;
 
@@ -155,10 +154,10 @@
                         }
 
                         if ($sueldo >= $sueldo_minimo && $sueldo <= $sueldo_maximo) {
-                            // Si todo está bien, puedes procesar los datos o redirigir a otra página
+                            
                             echo "<p style='color: green;'>Datos enviados correctamente.</p>";
 
-                            // Obtener los empleados del archivo JSON si existe
+                            
 if (file_exists('Agom_ArchEmpl_Activ2Trim1_HLC.json')) {
     $empleadosJson = file_get_contents('empleados.json');
     $empleados = json_decode($empleadosJson, true);
@@ -166,13 +165,13 @@ if (file_exists('Agom_ArchEmpl_Activ2Trim1_HLC.json')) {
     $empleados = [];
 }
 
-// Añadir el nuevo empleado al array de empleados
+
 $empleados[] = $empleado;
 
-// Convertir el array de empleados a JSON
+
 $empleadosJson = json_encode($empleados);
 
-// Guardar todos los empleados en el archivo 'empleados.json'
+
 file_put_contents('Agom_ArchEmpl_Activ2Trim1_HLC.json', $empleadosJson);
 
                             $tabla_html = "
@@ -187,7 +186,7 @@ file_put_contents('Agom_ArchEmpl_Activ2Trim1_HLC.json', $empleadosJson);
                                 <th>Aficiones</th>
                             </tr>";
 
-                            // Iterar sobre cada empleado y agregar una fila a la tabla por cada uno
+                            
                             $totalSal = 0;
                             $cont = 0;
                             foreach ($empleados as $empleado) {
@@ -200,7 +199,7 @@ file_put_contents('Agom_ArchEmpl_Activ2Trim1_HLC.json', $empleadosJson);
                                 $sexo = $empleado['sexo'];
                                 $aficiones = $empleado['aficiones'];
                                 $totalSal += $sueldo;
-                                // Agrega una clase CSS específica según la categoría del empleado
+                                
                                 $clase_css = '';
                             
                                 switch ($categoria) {
@@ -244,11 +243,11 @@ file_put_contents('Agom_ArchEmpl_Activ2Trim1_HLC.json', $empleadosJson);
                             $tabla_html .= "</table>";
 
 
-                            // Almacenar la tabla HTML en una variable de sesión
+                            
                             session_start();
                             $_SESSION['tabla_html'] = $tabla_html;
 
-                            // Redirigir a una nueva página que mostrará la tabla
+                            
                             header("Location: Agom_Ej2_Activ2Trim1_HLC.php");
                             exit();
 
